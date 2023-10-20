@@ -17,8 +17,8 @@
     margin: 10px;
     padding: 5px;
     height: 100px;
-    width: 100px;
-    
+    width: 200px;
+    border-redius: 10px;
   }
 </style>
 <body>
@@ -33,24 +33,10 @@
   </main>
 </body>
 <script>
-//let l = [10, 20, 30, 40]
-//l.splice(1, 1)
-//console.log(l.Array)
   function submitForm() {
     var name = document.getElementById("name").value;
     var email = document.getElementById("email").value;
- //   var checkStetus = 0;
-    
     var userDetails = JSON.parse(localStorage.getItem("userDetails")) ?? [];
-  /*  for(let v of userData){
-      if(v.email == email || v.name == name){
-        checkStetus = 1
-      }
-    }
-    
-    console.log(checkStetus())
-    
-    */
     userDetails.push({
       'name': name,
       'email': email,
@@ -59,34 +45,23 @@
     localStorage.setItem("userDetails", JSON.stringify(userDetails));
 //    event.target.reset()
      displayData();
-    //console.log(userDetails);
   }
-  
   function displayData() {
     var userData = JSON.parse(localStorage.getItem("userDetails")) || [];
     var finalData = '';
     
     userData.forEach((element, i) => {
-      //console.log(element);
       finalData += `<section><h1>${element.name} - ${element.email}</h1><button onclick="removeData(${i})">delete</button></section>`;
     });
-    
     document.getElementById("main").innerHTML = finalData;
   }
   function removeData(index){
-    //alert(index)
-    
     var userDetails = JSON.parse(localStorage.getItem("userDetails")) ?? [];
     userDetails.splice(index, 1)
-    
   displayData();
     localStorage.setItem("userDetails", JSON.stringify(userDetails));
-    //console.log(userDetails)
   }
-  // Call the displayData function to display the saved data
   displayData();
-  
-  
 </script>
 </html>
 
