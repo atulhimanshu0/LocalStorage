@@ -1,58 +1,4 @@
 
-<!------------------DOCTYPE html>
-<html lang="en">
-<head>
-  <!-- Your head content here 
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Database Management System</title>
-</head>
-<body>
-  <form action="javascript:void(0);">
-    <h3>File</h3>
-    <input type="text" placeholder="Name" id="name">  
-    <input type="text" placeholder="Email" id="email">  
-    <button>Submit</button>
-  </form>
-  <main id="main">
-    
-  </main>
-</body>
-<script>
-  document.querySelector("form").addEventListener("submit", (event) => {
-    let name = event.target.name.value;
-    let email = event.target.email.value;
-    
-    var userDetails = JSON.parse(localStorage.getItem("userDetails")) || [];
-    
-    userDetails.push({
-      'name': name,
-      'email': email,
-    });
-    
-    localStorage.setItem("userDetails", JSON.stringify(userDetails));
-    
-    console.log(userDetails);
-    
-    event.preventDefault(); // To stop the page from refreshing.
-  });
-  let displayData = () =>{
-      
-    var userData = JSON.parse(localStorage.getItem("userDetails")) || [];
-    var finalData = '';
-    userData.forEach(element, i) =>{
-      console.log(element)
-      finalData += `<h1></h1>`
-      
-    }
-  }
-  
-</script>
-</html>
-
------------------------------>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -61,6 +7,20 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Database Management System</title>
 </head>
+<style>
+  *{
+    margin: 0;
+    padding: 0;
+  }
+  section{
+    border: 1px solid #000;
+    margin: 10px;
+    padding: 5px;
+    height: 100px;
+    width: 100px;
+    
+  }
+</style>
 <body>
   <form>
     <h3>File</h3>
@@ -73,20 +33,33 @@
   </main>
 </body>
 <script>
+//let l = [10, 20, 30, 40]
+//l.splice(1, 1)
+//console.log(l.Array)
   function submitForm() {
     var name = document.getElementById("name").value;
     var email = document.getElementById("email").value;
+ //   var checkStetus = 0;
     
-    var userDetails = JSON.parse(localStorage.getItem("userDetails")) || [];
+    var userDetails = JSON.parse(localStorage.getItem("userDetails")) ?? [];
+  /*  for(let v of userData){
+      if(v.email == email || v.name == name){
+        checkStetus = 1
+      }
+    }
     
+    console.log(checkStetus())
+    
+    */
     userDetails.push({
       'name': name,
       'email': email,
     });
     
     localStorage.setItem("userDetails", JSON.stringify(userDetails));
-    
-    console.log(userDetails);
+//    event.target.reset()
+     displayData();
+    //console.log(userDetails);
   }
   
   function displayData() {
@@ -94,14 +67,26 @@
     var finalData = '';
     
     userData.forEach((element, i) => {
-      console.log(element);
-      finalData += `<h1>${element.name} - ${element.email}</h1>`;
+      //console.log(element);
+      finalData += `<section><h1>${element.name} - ${element.email}</h1><button onclick="removeData(${i})">delete</button></section>`;
     });
     
     document.getElementById("main").innerHTML = finalData;
   }
-  
+  function removeData(index){
+    //alert(index)
+    
+    var userDetails = JSON.parse(localStorage.getItem("userDetails")) ?? [];
+    userDetails.splice(index, 1)
+    
+  displayData();
+    localStorage.setItem("userDetails", JSON.stringify(userDetails));
+    //console.log(userDetails)
+  }
   // Call the displayData function to display the saved data
   displayData();
+  
+  
 </script>
 </html>
+
